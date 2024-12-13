@@ -1,32 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   convert_map_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 15:49:41 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 15:55:47 by olthorel         ###   ########.fr       */
+/*   Created: 2024/11/28 13:11:20 by olthorel          #+#    #+#             */
+/*   Updated: 2024/12/13 15:25:19 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_point3D multiple(t_point3D *a, t_point3D *b)
+int	get_3Dmap_width(t_point3D **map3D)
 {
-	t_point3D	res;
+	int	i;
 
-	res.x = a->x * b->x + a->y * b->y + a->z * b->z;
-	res.y = a->x * b->x + a->y * b->y + a->z * b->z;
-	res.z = a->x * b->x + a->y * b->y + a->z * b->z;
-	return (res);
+	i = 0;
+	while (map3D[0] && !map3D[0][i].last)
+		i++;
+	return (i);
 }
 
-t_point2D	get_tpoint(int x, int y)
+int	get_3Dmap_height(t_point3D **map3D)
 {
-	t_point2D	pos;
+	int	i;
 
-	pos.x = x;
-	pos.y = y;
-	return (pos);
+	i = 0;
+	while (map3D[i])
+		i++;
+	return (i);
+}
+
+void	*free_map2D(t_point2D **map2D, int alloc)
+{
+	int	i;
+
+	if (!alloc)
+	{
+		i = 0;
+		while (map2D[i])
+			free(map2D[i++]);
+		free(map2D);
+	}
+	return (NULL);	
 }

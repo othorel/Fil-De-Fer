@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:32:44 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/27 17:41:03 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:23:09 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # define KEYBOARD_7				26
 # define KEYBOARD_PLUS			69
 # define KEYBOARD_MINUS			78
-# define MOUSE_LEFT			1
-# define MOUSE_RIGHT		2
-# define WHEEL_DOWN			4
-# define WHEEL_UP			5
+# define MOUSE_LEFT				1
+# define MOUSE_RIGHT			2
+# define WHEEL_DOWN				4
+# define WHEEL_UP				5
 
-# define ON_DESTROY			17
-# define ON_BUTTON_PRESS	4
-# define ON_BUTTON_RELEASE	5
-# define ON_MOTION_NOTIFY	6
+# define ON_DESTROY				17
+# define ON_BUTTON_PRESS		4
+# define ON_BUTTON_RELEASE		5
+# define ON_MOTION_NOTIFY		6
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:18:03 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 16:38:35 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:21:00 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	draw_matrix(t_point2D **matrix, t_mlx *mlx, int color)
 		while (!matrix[x][y].last)
 		{
 			if (matrix[x + 1])
-				draw_line(mlx, matrix[x][y], matrix[x + 1][y], color);
+				mlx_put_line(mlx, matrix[x][y], matrix[x + 1][y], color);	
 			if (!matrix[x][y + 1].last)
-				draw_line(mlx, matrix[x][y], matrix[x][y + 1], color);
+				mlx_put_line(mlx, matrix[x][y], matrix[x][y + 1], color);
 			y++;
 		}
 		x++;
@@ -37,10 +37,10 @@ void	draw_matrix2(t_fdf *prog)
 {
 	if (!prog->mouse_down)
 	{
-		img_init_background(&prog->mlx, prog->mlx.width, prog->mlx.height,
+		mlx_init_background(&prog->img, prog->img.width, prog->img.height,
 			0x000000);
-		convert_map(&prog->matrix, 1);
-		draw_matrix(prog->matrix.matrix2D, &prog->mlx, prog->matrix.color);
+		convert_map(prog, 1);
+		draw_matrix(prog->matrix.matrix2D, &prog->img, prog->matrix.color);
 		mlx_put_image_to_window(prog->mlx, prog->win, prog->img.img,
 			prog->img.pos.x, prog->img.pos.y);
 	}

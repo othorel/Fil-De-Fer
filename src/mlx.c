@@ -6,13 +6,13 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:53:35 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 14:10:55 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:54:53 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+void	img_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 	int		i;
@@ -42,7 +42,7 @@ void	mlx_init_background(t_mlx *mlx, int width, int height, int color)
 		y = 0;
 		while (y < height)
 		{
-			mlx_pixel_put(mlx, x, y, color);
+			img_pixel_put(mlx, x, y, color);
 			y++;
 		}
 		x++;
@@ -51,19 +51,35 @@ void	mlx_init_background(t_mlx *mlx, int width, int height, int color)
 
 void	mlx_put_line(t_mlx *mlx, t_point2D a, t_point2D b, int color)
 {
-	double	x;
-	double	y;
-	int		i;
-
-	x = a.x - b.x;
-	y = a.y - b.y;
-	i = (sqrt((x * x) + (y * y)));
-	x = (x / i);
-	y = (y / i);
-	while (i--)
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	
+	dx = abs(b.x - a.x);
+	dy = abs(b.y - a.y);
+	err = dx - dy;
+	if (a.x < b.x)
+		sx = 1;
+	else
+		sx = -1;
+	if (a.y < b.y)
+		sy = 1;
+	else
+		sy = -1;
+	while (a.x != b.x || a.y != b.y)
 	{
-		mlx_pixel_put(mlx, a.x, a.y, color);
-		a.x -= x;
-		a.y -= y;
+		img_pixel_put(mlx, a.x, a.y, color);
+		if (2 * err > -dy)
+		{
+			err -= dy;
+			a.x += sx;
+		}
+		if (2 * err < dx)
+		{
+			err += dx;
+			a.y += sy;
+		}
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix.c                                           :+:      :+:    :+:   */
+/*   get_next_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:22:11 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 15:47:09 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:26:51 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static int	get_3D_height(char *filename)
 	
 	height = 0;
 	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd, GNL_KEEP);
+	line = get_next_line(fd);
 	while (line)
 	{
 		height++;
 		free(line);
-		line = get_next_line(fd, GNL_KEEP);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (height);
@@ -41,7 +41,7 @@ static int	get_3D_width(char *filename)
 	width = 1;
 	i = 0;
 	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd, GNL_CLEAR);
+	line = get_next_line(fd);
 	while (line && line[i])
 	{
 		if ((line[i] == ' ' && line[i - 1] != ' ') || !line[i + 1])
@@ -60,7 +60,7 @@ static void	alloc_map3D(t_point3D **map3D, int width, int height)
 	
 	i = 0;
 	*map3D = (t_point3D **)malloc(sizeof(t_point3D *) * (height + 1));
-	if (!map3D)
+	if (!*map3D)
 		return (NULL);
 	while (i < height)
 	{
@@ -91,7 +91,7 @@ void	parse_matrix(char *filename, t_point3D **matrix)
 	alloc_map3D(matrix, get_3D_width(filename), get_3D_height(filename));
 	i = 0;
 	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd, GNL_KEEP);
+	line = get_next_line(fd);
 	while (line)
 	{
 		j = 0;
@@ -102,7 +102,7 @@ void	parse_matrix(char *filename, t_point3D **matrix)
 					matrix[i][j++].z = ft_atoi(&line[k]);
 		k++;
 		free(line);
-		line = get_next_line(fd, GNL_KEEP);
+		line = get_next_line(fd);
 	}
 	close(fd);
 }

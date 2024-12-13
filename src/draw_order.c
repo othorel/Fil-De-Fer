@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:47:49 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 15:21:28 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:53:19 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	draw_order(t_fdf *prog)
 {
-	draw_rectangle(prog, get_tpoint(0, 0));
-		get_tpoint(prog->width, prog->mlx.pos.y), 0x151515;
+	draw_rectangle(prog, get_tpoint(0, 0), get_tpoint(prog->width, prog->img.pos.y), 0x151515);
 	mlx_string_put(prog->mlx, prog->win, 10, 20, 0xFFFFFF, "FDF - Controls");
 	mlx_string_put(prog->mlx, prog->win, 20, 35, 0xFFFFFF, "Left click: rotate"); 
 	mlx_string_put(prog->mlx, prog->win, 20, 48, 0xFFFFFF, "Right click: rotate");

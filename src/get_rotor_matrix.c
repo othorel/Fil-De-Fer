@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:57:58 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 16:29:45 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:51:52 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_point3D	*get_rotor_z(t_matrix matrix)
 	rotor[2].z = 1;
 	return (rotor);
 }
-static t_point3D	**get_rotor_matrix(t_matrix matrix)
+t_point3D	**get_rotor_matrix(t_matrix matrix)
 {
 	t_point3D	**rotor;
 	

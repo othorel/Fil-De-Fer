@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:43:51 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/28 16:34:53 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:04:58 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	deal_key(int keyboard, void *param)
 	t_fdf	*prog;
 
 	prog = (t_fdf *)param;
-	if (keyboard = KEYBOARD_I)
+	if (keyboard == KEYBOARD_I)
 		set_isometric(prog);
 	else if (keyboard == KEYBOARD_R)
 		set_dimetric(prog);
