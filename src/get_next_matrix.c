@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 15:22:11 by olthorel          #+#    #+#             */
-/*   Updated: 2024/12/12 13:26:51 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:26:32 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static void	alloc_map3D(t_point3D **map3D, int width, int height)
 	int		j;
 	
 	i = 0;
-	*map3D = (t_point3D **)malloc(sizeof(t_point3D *) * (height + 1));
-	if (!*map3D)
-		return (NULL);
+	*map3D = malloc(sizeof(t_point3D *) * (height + 1));
+	if (!(*map3D))
+		exit (EXIT_FAILURE);
 	while (i < height)
 	{
 		map3D[i] = (t_point3D *)malloc(sizeof(t_point3D) * (width));
 		if (!map3D[i])
-			return (free_map3D(map3D), NULL);
+			exit (EXIT_FAILURE);
 		j = 0;
 		while (j < width)
 		{

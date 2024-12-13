@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:53:35 by olthorel          #+#    #+#             */
-/*   Updated: 2024/12/13 14:54:53 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:28:27 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	mlx_put_line(t_mlx *mlx, t_point2D a, t_point2D b, int color)
 	int	sy;
 	int	err;
 	
-	dx = abs(b.x - a.x);
-	dy = abs(b.y - a.y);
+	dx = fabs(b.x - a.x);
+	dy = fabs(b.y - a.y);
 	err = dx - dy;
 	if (a.x < b.x)
 		sx = 1;

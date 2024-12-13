@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:57:28 by olthorel          #+#    #+#             */
-/*   Updated: 2024/12/13 14:06:34 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:41:20 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_fdf(t_fdf *fdf)
 	fdf->matrix.rot_z = 0;
 	fdf->matrix.color = 0xFFFFFF;
 	fdf->matrix.plus_z = 0.2;
-	dimetric_projection(fdf);
+	set_dimetric(fdf);
 	
 }
 
@@ -78,7 +78,7 @@ int	main(int ac, char **av)
 	t_fdf	fdf;
 	
 	init_fdf(&fdf);
-	parse_matrix(check_map_file(ac, av, &fdf), &fdf.matrix.matrix3D);
+	parse_matrix(check_map_file(ac, av, &fdf), fdf.matrix.matrix3D);
 	fdf.mlx = mlx_init();
 	if (!fdf.mlx)
 		exit(EXIT_FAILURE);
@@ -89,7 +89,7 @@ int	main(int ac, char **av)
 	if (!fdf.img.img)
 		exit(EXIT_FAILURE);
 	fdf.img.buffer = mlx_get_data_addr(fdf.img.img, &fdf.img.bits_per_pixel, &fdf.img.bits_per_line, &fdf.img.endian);
-	fdf.matrix.matrix2D = create_matrix2D(&fdf.matrix.matrix3D);
+	fdf.matrix.matrix2D = alloc_map2D(fdf.matrix.matrix3D);
 	draw_order(&fdf);
 	render(&fdf);
 	mlx_loop_hook(fdf.mlx, render, &fdf);

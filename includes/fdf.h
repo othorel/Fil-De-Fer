@@ -6,14 +6,15 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2024/12/13 15:52:08 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 18:01:32 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../../libft/libft.h"
+# include "../libft/libft.h"
+# include "../libft/ft_printf.h"
 # include "../minilibx-linux/mlx.h"
 # include "keyboard.h"
 # include <math.h>
@@ -110,13 +111,12 @@ t_point2D get_tpoint(int x, int y);
 
 void	parse_matrix(char *filename, t_point3D **matrix);
 
-void	free_rotor_matrix(t_point3D **rotor);
+void	*free_rotor_matrix(t_point3D **rotor);
 
 void img_pixel_put(t_mlx *mlx, int x, int y, int color);
 void mlx_init_background(t_mlx *mlx, int width, int height, int color);
 void mlx_put_line(t_mlx *mlx, t_point2D a, t_point2D b, int color);
 
 t_point3D	**get_rotor_matrix(t_matrix matrix);
-
 
 #endif

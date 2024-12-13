@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 11:18:23 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/26 16:01:01 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:17:24 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,28 +119,3 @@ char	*get_next_line(int fd)
 		free(buffer[fd]);
 	return (line);
 }
-
-/* int	main(void)
-{
-	int fd1 = open("test1.txt", O_RDONLY);
-	int fd2 = open("test2.txt", O_RDONLY);
-	char *line1;
-	char *line2;
-	
-	while ((line1 = get_next_line(fd1)) || (line2 = get_next_line(fd2)))
-	{
-		if (line1)
-		{
-			printf("%s\n", line1);
-			free(line1);
-		}
-		if (line2)
-		{
-			printf("%s\n", line2);
-			free(line1);
-		}
-	}
-	close(fd1);
-	close(fd2);
-	return (0);
-} */

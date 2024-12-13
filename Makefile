@@ -20,7 +20,7 @@ CC			=	cc
 
 CFLAGS		= -Wall -Wextra -Werror -g -I./libft/srcs
 
-FLAGS = -lm -Llib/minilibx-linux -lmlx -Llibft -lft -lXext -lX11
+FLAGS = -lm -L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11
 
 
 %.o: %.c ${HEADERS} libft/libft.a

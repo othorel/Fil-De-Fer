@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:38:33 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/26 16:06:26 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:17:15 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,11 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 /*                                                                            */
 /* ************************************************************************** */
 
+char	*ft_free(char *buffer, char *b);
 char	*ft_next_line(char *str);
+char	*ft_read_and_stock(int fd, char *str);
+char	*ft_extract_line(char *str);
+char	*get_next_line(int fd);
+
 
 #endif

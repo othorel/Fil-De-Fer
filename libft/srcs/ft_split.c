@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:09:31 by olthorel          #+#    #+#             */
-/*   Updated: 2024/11/26 16:12:59 by olthorel         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:19:30 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*malloc_word(char const *s, char charset)
 	return (word);
 }
 
-static void	ft_free(char **split, size_t alloc)
+static void	ft_free_split(char **split, size_t alloc)
 {
 	size_t	i;
 
@@ -88,7 +88,7 @@ char	**ft_split(char const *s, char c)
 			split[i] = malloc_word(s, c);
 			if (!split[i])
 			{
-				ft_free(split, i);
+				ft_free_split(split, i);
 				return (NULL);
 			}
 			i++;
