@@ -1,44 +1,40 @@
-SRCS		=	src/controls_utils.c    \
-				src/controls.c          \
-				src/convert_map_utils.c \
-				src/convert_map.c       \
-				src/draw_matrix.c       \
-				src/draw_order.c        \
-				src/get_matrix.c        \
-				src/get_next_matrix.c   \
-				src/get_rotor_matrix.c  \
-				src/mlx.c               \
-				src/main.c              \
-				libft/srcs/get_next_line.c 
+SRCS		=	src/close.c    \
+				src/draw.c     \
+				src/read.c	   \
+				src/isometrie.c\
+				src/main.c
 
-HEADERS		= 	includes/fdf.h          \
-				includes/keyboard.h
+OBJ_DIR		=	obj
+OBJS		=	$(OBJ_DIR)/close.o $(OBJ_DIR)/draw.o $(OBJ_DIR)/main.o $(OBJ_DIR)/read.o $(OBJ_DIR)/isometrie.o  
+
+HEADERS		=	includes/fdf.h     
 
 NAME		=	fdf
 
 CC			=	cc
 
-CFLAGS		= -Wall -Wextra -Werror -g -I./libft/srcs
+CFLAGS		=	-Wall -Wextra -Werror -g -I./libft/srcs -Iincludes
 
-FLAGS = -lm -L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11
+FLAGS		=	-lm -L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11
 
+# Règle pour générer chaque fichier .o dans obj/
+$(OBJ_DIR)/%.o: src/%.c $(HEADERS)
+			@mkdir -p $(OBJ_DIR)
+			$(CC) $(CFLAGS) -c $< -o $@
 
-%.o: %.c ${HEADERS} libft/libft.a
-			${CC} -c $< -o $@
+all:		libft mlx $(NAME)
 
-all:		libft mlx ${NAME}
-
-${NAME}:	${SRCS:.c=.o} ${HEADERS}
-			${CC} ${SRCS:.c=.o} -o ${NAME} ${FLAGS}
+$(NAME):	$(OBJS) $(HEADERS)
+			$(CC) $(OBJS) -o $(NAME) $(FLAGS)
 
 clean:
-			rm -rf ${SRCS:.c=.o}
+			rm -rf $(OBJ_DIR)
 			make clean -C libft
 			make clean -C minilibx-linux
 
 fclean:		clean
 			make fclean -C libft
-			rm -rf ${NAME}
+			rm -rf $(NAME)
 
 re:			fclean all
 
@@ -49,3 +45,5 @@ mlx:
 			@make -C minilibx-linux
 
 .PHONY:		all clean fclean re libft mlx
+
+
