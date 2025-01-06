@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/02 15:34:50 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:04:42 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 typedef struct	s_point
 {
-	int			x;
-	int			y;
-	int			z;
+	float		x;
+	float		y;
+	float		z;
 }				t_point;
 
 typedef struct s_fdf
@@ -47,6 +47,7 @@ int		key_hook(int key, void *param);
 
 void	draw_line(void *mlx, void *win, t_point start, t_point end, int color);
 void	draw_grid(void *mlx, void *win, int color);
+int		calculate_scale(int width, int height, int win_width, int win_height);
 void	draw_map(void *mlx, void *win, t_fdf *data);
 
 void	apply_isometric_projection(t_point *p, int scale, int offset_x, int offset_y);

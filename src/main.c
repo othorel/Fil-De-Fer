@@ -51,7 +51,7 @@ int main(int ac, char **av)
     }
 
     ft_printf("Drawing grid...\n");
-    draw_grid(mlx.mlx, mlx.win, COLOR);
+    //draw_grid(mlx.mlx, mlx.win, COLOR);
 
     ft_printf("Drawing map...\n");
     draw_map(mlx.mlx, mlx.win, &mlx);

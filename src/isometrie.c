@@ -12,34 +12,37 @@
 
 #include "../includes/fdf.h"
 
-#include "../includes/fdf.h"
-
 void apply_isometric_projection(t_point *p, int scale, int offset_x, int offset_y)
 {
-    int temp_x = p->x;
-    int temp_y = p->y;
-
-    // Affichage avant transformation pour déboguer
     ft_printf("Avant projection : x=%d, y=%d, z=%d\n", p->x, p->y, p->z);
 
-    // Appliquer la projection isométrique (rotation de 30° sur X et Y)
-    p->x = (temp_x - temp_y) * cos(0.523599);  // cos(30°)
-    p->y = (temp_x + temp_y) * sin(0.523599) - p->z;
+    // Calcul de la projection isométrique classique
+    int x_isometric = (p->x - p->y) * cos(0.5235987756);  // cos(30°) (pi/6)
+    int y_isometric = (p->x + p->y) * sin(0.5235987756) - p->z; // sin(30°) (pi/6)
 
-    // Appliquer un facteur d'échelle pour s'assurer que les points restent dans la fenêtre
-    p->x = p->x * scale + offset_x;
-    p->y = p->y * scale + offset_y;
 
-    // Affichage après transformation pour déboguer
-    ft_printf("Après projection : x=%d, y=%d\n", p->x, p->y);
+    // Affichage des valeurs avant l'échelle et le décalage
+    ft_printf("Avant échelle : x_isometric=%d, y_isometric=%d\n", x_isometric, y_isometric);
 
-    // Vérification si les coordonnées sont à l'intérieur de la fenêtre
-    if (p->x < 0 || p->x >= WIN_WIDTH || p->y < 0 || p->y >= WIN_HEIGHT)
-    {
-        ft_printf("Avertissement : coordonnées hors de la fenêtre : (%d, %d)\n", p->x, p->y);
+    // Appliquer l'échelle : On multiplie par un facteur d'échelle directement sans diviser par 10
+    if (scale > 1) {
+        x_isometric *= scale;  // Ajuster l'échelle
+        y_isometric *= scale;
     }
-}
 
+    // Ajouter le décalage
+    int x_final = x_isometric + offset_x;
+    int y_final = y_isometric + offset_y;
+
+    ft_printf("Coordonnées avant dessin : x_final=%d, y_final=%d\n", x_final, y_final);
+
+    // Appliquer les coordonnées finales
+    p->x = x_final;
+    p->y = y_final;
+
+    // Afficher après le calcul final pour le contrôle
+    ft_printf("Après projection isométrique : x=%d, y=%d\n", p->x, p->y);
+}
 
 int get_color_by_z(int z)
 {
