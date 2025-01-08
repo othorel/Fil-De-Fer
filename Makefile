@@ -1,5 +1,4 @@
 # Variables
-<<<<<<< HEAD
 SRCS        =   src/close.c     \
 				src/color.c	    \
                 src/draw.c      \
@@ -16,13 +15,6 @@ SRCS        =   src/close.c     \
 				src/transform.c \
 				src/atoi_base.c \
 				src/utils.c
-=======
-SRCS        =   src/close.c    \
-                src/draw.c     \
-                src/read.c     \
-                src/isometrie.c\
-                src/main.c
->>>>>>> fcb3a2d651ca1a6754058721cbbc5b38514a430c
 
 OBJ_DIR     =   obj
 OBJS        =   $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
@@ -82,8 +74,4 @@ mlx:
 	@echo "$(GREEN)Minilibx built successfully!$(RESET)"
 
 # Éviter les conflits avec des fichiers portant les noms des cibles
-<<<<<<< HEAD
 .PHONY: all clean fclean re libft mlx
-=======
-.PHONY: all clean fclean re libft mlx
->>>>>>> fcb3a2d651ca1a6754058721cbbc5b38514a430c
