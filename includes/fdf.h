@@ -6,7 +6,11 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/08 15:35:35 by olthorel         ###   ########.fr       */
+=======
+/*   Updated: 2025/01/06 15:04:42 by olthorel         ###   ########.fr       */
+>>>>>>> fcb3a2d651ca1a6754058721cbbc5b38514a430c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +43,7 @@
 
 typedef struct s_point
 {
+<<<<<<< HEAD
 	float	x;
 	float	y;
 	float	z;
@@ -98,6 +103,12 @@ typedef struct s_cam
 	double	beta;
 	double	gamma;
 }			t_cam;
+=======
+	float		x;
+	float		y;
+	float		z;
+}				t_point;
+>>>>>>> fcb3a2d651ca1a6754058721cbbc5b38514a430c
 
 typedef struct s_fdf
 {
@@ -117,11 +128,18 @@ enum e_projection
 	TOP
 };
 
+<<<<<<< HEAD
 enum e_bool
 {
 	FALSE,
 	TRUE
 };
+=======
+void	draw_line(void *mlx, void *win, t_point start, t_point end, int color);
+void	draw_grid(void *mlx, void *win, int color);
+int		calculate_scale(int width, int height, int win_width, int win_height);
+void	draw_map(void *mlx, void *win, t_fdf *data);
+>>>>>>> fcb3a2d651ca1a6754058721cbbc5b38514a430c
 
 t_map	*read_map(char *file_name);
 
