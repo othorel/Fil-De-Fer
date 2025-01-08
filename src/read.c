@@ -5,159 +5,140 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/31 15:53:26 by olthorel          #+#    #+#             */
-/*   Updated: 2024/12/31 15:53:26 by olthorel         ###   ########.fr       */
+/*   Created: 2025/01/08 10:14:33 by olthorel          #+#    #+#             */
+/*   Updated: 2025/01/08 10:14:33 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	free_ft_split(char **tab)
+static int	get_width(char *file_name)
 {
-	int i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+	int		fd;
+	char	*line;
+	int		width;
+	int		new_width;
 
-int	count_columns(char *line)
-{
-	int count = 0;
-	int i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ' && (i == 0 || line[i - 1] == ' '))
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int init_map_memory(t_fdf *mlx, int height, int width)
-{
-    int i;
-
-    ft_printf("Initializing map memory: height=%d, width=%d\n", height, width);
-    mlx->map = malloc(sizeof(t_point *) * height);
-    if (!mlx->map)
-    {
-        ft_printf("Failed to allocate memory for rows\n");
-        return (1);
-    }
-    i = 0;
-    while (i < height)
-    {
-        mlx->map[i] = malloc(sizeof(t_point) * width);
-        if (!mlx->map[i])
-        {
-            ft_printf("Failed to allocate memory for row %d\n", i);
-            while (i >= 0)
-            {
-                free(mlx->map[i]);
-                i--;
-            }
-            free(mlx->map);
-            return (1);
-        }
-        i++;
-    }
-    return (0);
-}
-
-int fill_map(t_fdf *mlx, char *file)
-{
-    int fd;
-    char *line;
-    char **tab;
-    int i = 0;
-    int j;
-
-    ft_printf("Filling map from file: %s\n", file);
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-
-    line = get_next_line(fd);
-    while (line != NULL)
-    {
-        ft_printf("Reading line: %s", line);
-        tab = ft_split(line, ' ');
-        if (!tab)
-        {
-            ft_printf("Failed to split line: %s\n", line);
-            free(line);
-            close(fd);
-            return (1);
-        }
-        j = 0;
-        while (tab[j])
-        {
-            if (j >= mlx->width)
-            {
-                ft_printf("Column count mismatch on line %d\n", i);
-                free_ft_split(tab);
-                free(line);
-                close(fd);
-                return (1);
-            }
-            mlx->map[i][j].x = j * 50;
-            mlx->map[i][j].y = i * 50;
-            mlx->map[i][j].z = ft_atoi(tab[j]);
-            ft_printf("Filled point at [%d][%d]: x=%d, y=%d, z=%d\n", i, j, mlx->map[i][j].x, mlx->map[i][j].y, mlx->map[i][j].z);
-            free(tab[j]);
-            j++;
-        }
-        if (j != mlx->width)
-            ft_printf("Warning: Expected %d columns, found %d on line %d\n", mlx->width, j, i);
-        free(tab);
-        free(line);
-        line = get_next_line(fd);
-        i++;
-    }
-    close(fd);
-    return (0);
-}
-
-
-int	read_map(char *file, t_fdf *mlx)
-{
-	int     fd;
-	char    *line;
-	int     height = 0;
-	int     width = 0;
-
-	ft_printf("Reading map file: %s\n", file);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Error opening file");
-		return (1);
-	}
-
+	fd = open(file_name, O_RDONLY, 0);
 	line = get_next_line(fd);
-	while (line != NULL)
+	if (!line)
+		return (0);
+	width = (int)ft_split_count(line, ' ');
+	free(line);
+	while (1)
 	{
-		ft_printf("Reading line: %s", line);
-		if (height == 0)
-			width = count_columns(line);
-		free(line);
-		height++;
 		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		new_width = (int)ft_split_count(line, ' ');
+		if (width != new_width)
+			return (0);
+		free(line);
 	}
 	close(fd);
+	return (width);
+}
 
-	ft_printf("Map dimensions: height=%d, width=%d\n", height, width);
-	mlx->height = height;
-	mlx->width = width;
-	if (init_map_memory(mlx, height, width) != 0)
-		return (1);
-	if (fill_map(mlx, file) != 0)
-		return (1);
-	return (0);
+static int	get_depth(char *file_name)
+{
+	int		fd;
+	int		depth;
+	char	*line;
+
+	fd = open(file_name, O_RDONLY, 0);
+	depth = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (ft_isprint(*line))
+			depth++;
+		free(line);
+	}
+	close(fd);
+	return (depth);
+}
+
+static void	fill_point(char *point, t_map *map, int coord_x, int coord_y)
+{
+	char	**info;
+	int		i;
+
+	map->coordinates[coord_x][coord_y].x = (float)coord_x;
+	map->coordinates[coord_x][coord_y].y = (float)coord_y;
+	if (ft_strchr(point, ','))
+	{
+		info = ft_split(point, ',');
+		map->coordinates[coord_x][coord_y].z = (float)ft_atoi(info[0]);
+		map->coordinates[coord_x][coord_y].color = \
+			ft_atoi_base(info[1], HEXADECIMAL_L_BASE);
+		i = 0;
+		while (info[i])
+			free(info[i++]);
+		free(info);
+	}
+	else
+	{
+		map->coordinates[coord_x][coord_y].z = (float)ft_atoi(point);
+		map->coordinates[coord_x][coord_y].color = -1;
+	}
+	if (map->coordinates[coord_x][coord_y].z > map->max_z)
+		map->max_z = map->coordinates[coord_x][coord_y].z;
+	if (map->coordinates[coord_x][coord_y].z < map->min_z)
+		map->min_z = map->coordinates[coord_x][coord_y].z;
+}
+
+static void	get_points(char *file_name, t_map *map)
+{
+	int		fd;
+	char	*line;
+	char	**split;
+	int		coord[2];
+
+	fd = open(file_name, O_RDONLY, 0);
+	coord[1] = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		split = ft_split(line, ' ');
+		coord[0] = 0;
+		while (coord[0] < map->max_x)
+		{
+			fill_point(split[coord[0]], map, coord[0], coord[1]);
+			free(split[coord[0]]);
+			coord[0]++;
+		}
+		free(split);
+		free(line);
+		coord[1]++;
+	}
+	close(fd);
+}
+
+t_map	*read_map(char *file_name)
+{
+	t_map	*map;
+	int		fd;
+
+	fd = open(file_name, O_RDONLY, 0);
+	if (fd < 0)
+		error(2);
+	close(fd);
+	map = init_map();
+	if (!map)
+		return (NULL);
+	map->max_x = get_width(file_name);
+	map->max_y = get_depth(file_name);
+	map->coordinates = init_coordinates(map->max_x, map->max_y);
+	if (!map->coordinates)
+	{
+		free(map);
+		return (NULL);
+	}
+	get_points(file_name, map);
+	center_to_origin(map);
+	return (map);
 }

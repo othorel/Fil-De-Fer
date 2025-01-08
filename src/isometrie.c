@@ -12,41 +12,48 @@
 
 #include "../includes/fdf.h"
 
-#include "../includes/fdf.h"
-
-void apply_isometric_projection(t_point *p, int scale, int offset_x, int offset_y)
+static void	isometric(t_line *line)
 {
-    int temp_x = p->x;
-    int temp_y = p->y;
+	t_point	new_start;
+	t_point	new_end;
 
-    // Affichage avant transformation pour déboguer
-    ft_printf("Avant projection : x=%d, y=%d, z=%d\n", p->x, p->y, p->z);
-
-    // Appliquer la projection isométrique (rotation de 30° sur X et Y)
-    p->x = (temp_x - temp_y) * cos(0.523599);  // cos(30°)
-    p->y = (temp_x + temp_y) * sin(0.523599) - p->z;
-
-    // Appliquer un facteur d'échelle pour s'assurer que les points restent dans la fenêtre
-    p->x = p->x * scale + offset_x;
-    p->y = p->y * scale + offset_y;
-
-    // Affichage après transformation pour déboguer
-    ft_printf("Après projection : x=%d, y=%d\n", p->x, p->y);
-
-    // Vérification si les coordonnées sont à l'intérieur de la fenêtre
-    if (p->x < 0 || p->x >= WIN_WIDTH || p->y < 0 || p->y >= WIN_HEIGHT)
-    {
-        ft_printf("Avertissement : coordonnées hors de la fenêtre : (%d, %d)\n", p->x, p->y);
-    }
+	new_start.x = (line->start.x - line->start.y) * cos(ANG_30);
+	new_start.y = (line->start.x + line->start.y) * sin(ANG_30) - \
+		line->start.z;
+	line->start.x = new_start.x;
+	line->start.y = new_start.y;
+	new_end.x = (line->end.x - line->end.y) * cos(ANG_30);
+	new_end.y = (line->end.x + line->end.y) * sin(ANG_30) - line->end.z;
+	line->end.x = new_end.x;
+	line->end.y = new_end.y;
 }
 
-
-int get_color_by_z(int z)
+static void	perspective(t_line *line)
 {
-    if (z > 0)
-        return 0xFF0000; // Rouge si l'altitude est positive
-    else if (z < 0)
-        return 0x0000FF; // Bleu si l'altitude est négative
-    else
-        return 0xFFFFFF; // Blanc si z = 0
+	t_point	new_start;
+	t_point	new_end;
+	double	z;
+
+	rotate_x(line, 3 * -ANG_45);
+	z = line->start.z + line->transform_z;
+	new_start.x = line->start.x / z;
+	new_start.y = line->start.y / z;
+	line->start.x = new_start.x;
+	line->start.y = -new_start.y;
+	z = line->end.z + line->transform_z;
+	new_end.x = line->end.x / z;
+	new_end.y = line->end.y / z;
+	line->end.x = new_end.x;
+	line->end.y = -new_end.y;
+	scale(line, line->transform_z);
+}
+
+void	project(t_cam *cam, t_line *line)
+{
+	if (cam->projection == ISOMETRIC)
+		isometric(line);
+	else if (cam->projection == PERSPECTIVE)
+		perspective(line);
+	else if (cam->projection == TOP)
+		return ;
 }
