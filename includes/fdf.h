@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/08 18:06:09 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:34:56 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <unistd.h>
 
 # define WINDOW_NAME	 	"fdf olthorel"
-# define WINDOW_WIDTH		1200
-# define WINDOW_HEIGHT		900
+# define WINDOW_WIDTH		2000
+# define WINDOW_HEIGHT		1000
 # define MAX_PIXEL			1080000
 # define LINE_DEFAULT		C_WHITE
 # define BACKGROUND_DEFAULT	C_GREY

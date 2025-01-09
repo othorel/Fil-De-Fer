@@ -28,8 +28,8 @@ int	main(int argc, char **argv)
 	file_name = argv[1];
 	fdf = init_fdf(file_name);
 	render(fdf);
-	mlx_key_hook(fdf->win, &key_handle, fdf);
+	mlx_hook(fdf->win, 2, 1L << 0, &key_handle, fdf);
+	mlx_hook(fdf->win, 17, 0, &handle_close, fdf);
 	mlx_expose_hook(fdf->win, &expose_handle, fdf);
-	mlx_hook(fdf->win, 17, 0, handle_close, fdf);
 	mlx_loop(fdf->mlx);
 }
