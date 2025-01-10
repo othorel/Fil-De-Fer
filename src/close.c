@@ -27,58 +27,24 @@ static void	close_coordinates(t_point **coordinates, int width)
 
 void	close_all(t_fdf *fdf, int exit_code)
 {
-	fdf = NULL;
-	if (!fdf)
-	{
-		error(exit_code);
-		return;
-	}
-	if (fdf->map)
-	{
-		if (fdf->map->coordinates)
-            close_coordinates(fdf->map->coordinates, fdf->map->max_x);
-		free(fdf->map);
-	}
-	if (fdf->image)
-	{
-		if (fdf->image->image)
-            mlx_destroy_image(fdf->mlx, fdf->image->image);
-		free(fdf->image);
-	}
-	if (fdf->cam)
-        free(fdf->cam);
-	if (fdf->win)
-		mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-		free(fdf->mlx);
+	close_coordinates(fdf->map->coordinates, fdf->map->max_x);
+	free(fdf->map);
+	mlx_destroy_image(fdf->mlx, fdf->image->image);
+	free(fdf->image);
+	free(fdf->cam);
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
 	free(fdf);
 	error(exit_code);
 }
 
 void	close_map(t_fdf *fdf, int exit_code)
 {
-	fdf = NULL;
-	if (fdf)
-	{
-		if (fdf->map)
-		{
-			if (fdf->map->coordinates)
-				close_coordinates(fdf->map->coordinates, fdf->map->max_x);
-			free(fdf->map);
-		}
-		if (fdf->win)
-			mlx_destroy_window(fdf->mlx, fdf->win);
-		if (fdf->mlx)
-			mlx_destroy_display(fdf->mlx);
-		free(fdf);
-	}
+	close_coordinates(fdf->map->coordinates, fdf->map->max_x);
+	free(fdf->map);
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_display(fdf->mlx);
+	free(fdf);
 	error(exit_code);
-}
-
-int handle_close(int keycode, t_fdf *fdf)
-{
-    (void)keycode;
-    if (fdf)
-		close_all(fdf, 0);
-    exit(0);
 }
