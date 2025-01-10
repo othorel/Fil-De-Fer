@@ -80,4 +80,3 @@ void	clear_image(t_image *image, int image_size)
 		y++;
 	}
 }
-

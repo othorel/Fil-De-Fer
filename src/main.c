@@ -18,7 +18,7 @@ static int	expose_handle(t_fdf *fdf)
 	return (0);
 }
 
-static int handle_destroy(t_fdf *fdf)
+static int	handle_destroy(t_fdf *fdf)
 {
 	if (fdf)
 		close_all(fdf, 0);
