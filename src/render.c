@@ -26,14 +26,16 @@ static void	apply_colors(t_fdf *fdf, t_point *point)
 	{
 		if (point->z >= 0)
 		{
-			col = color_pallet_init(C_GREY, C_ORANGY);
+			col = color_pallet_init(C_LIME, C_BLUEY);
 			point->color = get_color(col, absolute(point->z), \
 				absolute(fdf->map->max_z));
 			free(col);
 		}
+		else if (point->z == 0)
+			point->color = C_LIME;
 		else
 		{
-			col = color_pallet_init(C_GREY, C_BLUEY);
+			col = color_pallet_init(C_LIME, C_ORANGY);
 			point->color = get_color(col, absolute(point->z), \
 				absolute(fdf->map->max_z));
 			free(col);
@@ -57,11 +59,30 @@ static void	render_line(t_fdf *fdf, t_point start, t_point end)
 	free(fdf->image->line);
 }
 
+void	display_fps(t_fps *fps_data)
+{
+	struct timeval	current_time;
+	double			elapsed_time;
+
+	gettimeofday(&current_time, NULL);
+	elapsed_time = (current_time.tv_sec - fps_data->last_time.tv_sec) +
+                   (current_time.tv_usec - fps_data->last_time.tv_usec) / 1000000.0;
+	fps_data->frames_count++;
+	if (elapsed_time >= 1.0)
+	{
+		fps_data->fps = fps_data->frames_count;
+		fps_data->frames_count = 0;
+		fps_data->last_time = current_time;
+	}
+}
+
 void	render(t_fdf *fdf)
 {
 	int	x;
 	int	y;
 
+	if (fdf->process == 1)
+		return;
 	clear_image(fdf->image, MAX_PIXEL * 4);
 	y = 0;
 	while (y < fdf->map->max_y)
@@ -79,6 +100,8 @@ void	render(t_fdf *fdf)
 		}
 		y++;
 	}
+	display_fps(&fdf->fps_data);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->image->image, 0, 0);
 	print_menu(fdf);
+	fdf->process = 0;
 }

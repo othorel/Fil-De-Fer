@@ -26,5 +26,6 @@
 
 # define C_ORANGY	0xffa500
 # define C_BLUEY	0x0492c2
+# define C_LIME     0XA0D700
 
 #endif

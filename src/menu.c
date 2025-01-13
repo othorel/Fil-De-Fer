@@ -32,10 +32,12 @@ void	print_menu(t_fdf *fdf)
 	char	*projection;
 	void	*mlx;
 	void	*win;
+	char	*fps;
 
 	y = 0;
 	mlx = fdf->mlx;
 	win = fdf->win;
+	fps = ft_itoa(fdf->fps_data.fps);
 	projection = get_projection_name(fdf);
 	mlx_string_put(mlx, win, 50, y += 50, C_TEXT, projection);
 	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Press 'ESC' to close");
@@ -52,4 +54,10 @@ void	print_menu(t_fdf *fdf)
 	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Top View: press 'O'");
 	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Colors: press 'SPACE'");
 	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Reset view: press 'R'");
+	if (fps)
+	{
+		mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "FPS: ");
+		mlx_string_put(mlx, win, 100, y, C_TEXT, fps);
+		free(fps);
+	}
 }

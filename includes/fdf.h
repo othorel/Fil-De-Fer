@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/09 10:34:56 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:51:03 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define WINDOW_NAME	 	"fdf olthorel"
-# define WINDOW_WIDTH		2000
-# define WINDOW_HEIGHT		1000
+# define WINDOW_WIDTH		1600
+# define WINDOW_HEIGHT		900
 # define MAX_PIXEL			1080000
 # define LINE_DEFAULT		C_WHITE
 # define BACKGROUND_DEFAULT	C_GREY
@@ -99,6 +100,13 @@ typedef struct s_cam
 	double	gamma;
 }			t_cam;
 
+typedef struct s_fps
+{
+	struct timeval	last_time;
+	int				frames_count;
+	double			fps;
+}					t_fps;
+
 typedef struct s_fdf
 {
 	t_map	*map;
@@ -106,6 +114,8 @@ typedef struct s_fdf
 	int		win_x;
 	int		win_y;
 	void	*win;
+	int		process;
+	t_fps	fps_data;
 	t_image	*image;
 	t_cam	*cam;
 }			t_fdf;
@@ -168,5 +178,7 @@ int		key_handle(int keycode, t_fdf *fdf);
 
 size_t	ft_split_count(const char *s, char c);
 int		ft_atoi_base(const char *str, const char *base);
+
+void	display_fps(t_fps *fps_data);
 
 #endif

@@ -14,7 +14,10 @@
 
 static int	expose_handle(t_fdf *fdf)
 {
+	if (fdf->process == 1)
+		return (0);
 	render(fdf);
+	fdf->process = 0;
 	return (0);
 }
 
@@ -36,6 +39,10 @@ int	main(int argc, char **argv)
 	fdf = init_fdf(file_name);
 	if (!fdf)
 		error(1);
+	gettimeofday(&fdf->fps_data.last_time, NULL);
+	fdf->fps_data.frames_count = 0;
+	fdf->fps_data.fps = 0;
+	fdf->process = 0;
 	render(fdf);
 	mlx_hook(fdf->win, 2, 1L << 0, &key_handle, fdf);
 	mlx_hook(fdf->win, 17, 0L, &handle_destroy, fdf);

@@ -64,6 +64,8 @@ static void	key_project(int keycode, t_fdf *fdf)
 
 int	key_handle(int keycode, t_fdf *fdf)
 {
+	if (fdf->process == 1)
+		return (0);
 	if (keycode == KEY_ESC)
 		close_all(fdf, 0);
 	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT || keycode == KEY_UP \
@@ -87,5 +89,6 @@ int	key_handle(int keycode, t_fdf *fdf)
 	else if (keycode == KEY_R)
 		reset(fdf);
 	render(fdf);
+	fdf->process = 0;
 	return (0);
 }
