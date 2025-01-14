@@ -46,10 +46,10 @@ t_map	*init_map(void)
 	if (!map)
 		return (NULL);
 	map->coordinates = NULL;
-	map->max_x = 0;
-	map->max_y = 0;
-	map->max_z = 0;
-	map->min_z = 0;
+	map->max_x = 1;
+	map->max_y = 1;
+	map->max_z = 1;
+	map->min_z = 1;
 	return (map);
 }
 

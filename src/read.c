@@ -17,7 +17,7 @@ static int	get_width(char *file_name)
 	int		fd;
 	char	*line;
 	int		width;
-	int		new_width;
+	//int		new_width;
 
 	fd = open(file_name, O_RDONLY, 0);
 	line = get_next_line(fd);
@@ -25,7 +25,7 @@ static int	get_width(char *file_name)
 		return (0);
 	width = (int)ft_split_count(line, ' ');
 	free(line);
-	while (1)
+	/* while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
@@ -34,7 +34,7 @@ static int	get_width(char *file_name)
 		if (width != new_width)
 			return (0);
 		free(line);
-	}
+	} */
 	close(fd);
 	return (width);
 }

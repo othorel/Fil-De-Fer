@@ -39,25 +39,23 @@ float	min(float a, float b)
 size_t	ft_split_count(const char *s, char c)
 {
 	size_t	i;
-	size_t	prev;
-	size_t	next;
-	size_t	size;
 	size_t	counter;
+	int		in_word;
 
+	if (!s)
+		return (0);
 	i = 0;
-	prev = i;
-	next = i;
 	counter = 0;
-	while (1)
+	in_word = 0;
+	while (s[i])
 	{
-		if (s[i] == c || s[i] == '\0')
-			next = i;
-		size = next - prev;
-		if (size > 1 || (size == 1 && s[i - 1] != c))
+		if (s[i] != c && in_word == 0)
+		{
+			in_word = 1;
 			counter++;
-		if (s[i] == '\0')
-			break ;
-		prev = next;
+		}
+		else if (s[i] == c)
+			in_word = 0;
 		i++;
 	}
 	return (counter);

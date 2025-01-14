@@ -66,6 +66,10 @@ float	scale_to_fit(t_map *map)
 	float	scale_y;
 	float	scale_factor;
 
+	if (map->max_x == 0)
+		map->max_x = 1;
+	if (map->max_y == 0)
+		map->max_y = 1;
 	scale_x = WINDOW_WIDTH / map->max_x;
 	scale_y = WINDOW_HEIGHT / map->max_y;
 	scale_factor = min(scale_x, scale_y);
@@ -76,6 +80,8 @@ float	scale_to_fit(t_map *map)
 
 void	reset(t_fdf *fdf)
 {
+	if (!fdf || !fdf->cam)
+		return ;
 	fdf->cam->scale_factor = scale_to_fit(fdf->map);
 	fdf->cam->scale_z = 1;
 	fdf->cam->move_x = WINDOW_WIDTH / 2;

@@ -67,7 +67,7 @@ void	clear_image(t_image *image, int image_size)
 	int	x;
 	int	y;
 
-	ft_bzero(image->buffer, image_size);
+	ft_memset(image->buffer, 0, image_size);
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{
