@@ -17,24 +17,15 @@ static int	get_width(char *file_name)
 	int		fd;
 	char	*line;
 	int		width;
-	//int		new_width;
 
 	fd = open(file_name, O_RDONLY, 0);
+	if (fd < 0)
+		error(2);
 	line = get_next_line(fd);
 	if (!line)
 		return (0);
 	width = (int)ft_split_count(line, ' ');
 	free(line);
-	/* while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		new_width = (int)ft_split_count(line, ' ');
-		if (width != new_width)
-			return (0);
-		free(line);
-	} */
 	close(fd);
 	return (width);
 }
@@ -46,6 +37,8 @@ static int	get_depth(char *file_name)
 	char	*line;
 
 	fd = open(file_name, O_RDONLY, 0);
+	if (fd < 0)
+		error(2);
 	depth = 0;
 	while (1)
 	{

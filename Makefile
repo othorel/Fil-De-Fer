@@ -31,12 +31,11 @@ FLAGS       =   -lm -L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11
 GREEN       =   \033[1;32m
 CYAN        =   \033[1;36m
 RESET       =   \033[0m
-SMILEY      =   😊
+SMILEY      =   😊👍
 
 # Règle pour générer chaque fichier .o dans obj/
 $(OBJ_DIR)/%.o: src/%.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(CYAN)Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Cible principale

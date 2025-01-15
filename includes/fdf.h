@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/13 16:51:03 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:36:46 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/time.h>
+# include <time.h>
 
 # define WINDOW_NAME	 	"fdf olthorel"
 # define WINDOW_WIDTH		1600
@@ -102,7 +102,7 @@ typedef struct s_cam
 
 typedef struct s_fps
 {
-	struct timeval	last_time;
+	struct timespec	last_time;
 	int				frames_count;
 	double			fps;
 }					t_fps;

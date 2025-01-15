@@ -61,12 +61,12 @@ static void	render_line(t_fdf *fdf, t_point start, t_point end)
 
 void	display_fps(t_fps *fps_data)
 {
-	struct timeval	current_time;
+	struct timespec	current_time;
 	double			elapsed_time;
 
-	gettimeofday(&current_time, NULL);
+	clock_gettime(CLOCK_MONOTONIC, &current_time);
 	elapsed_time = (current_time.tv_sec - fps_data->last_time.tv_sec) +
-                   (current_time.tv_usec - fps_data->last_time.tv_usec) / 1000000.0;
+                   (current_time.tv_nsec - fps_data->last_time.tv_nsec) / 1000000.0;
 	fps_data->frames_count++;
 	if (elapsed_time >= 1.0)
 	{
@@ -83,6 +83,7 @@ void	render(t_fdf *fdf)
 
 	if (fdf->process == 1)
 		return;
+	fdf->process = 1;
 	clear_image(fdf->image, MAX_PIXEL * 4);
 	y = 0;
 	while (y < fdf->map->max_y)
