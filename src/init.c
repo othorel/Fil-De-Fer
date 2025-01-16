@@ -16,7 +16,7 @@ t_fdf	*init_fdf(char *file_name)
 {
 	t_fdf	*fdf;
 
-	fdf = malloc(sizeof(t_fdf));
+	fdf = (t_fdf *)malloc(sizeof(t_fdf));
 	if (!fdf)
 		error(3);
 	fdf->map = read_map(file_name);
@@ -26,9 +26,17 @@ t_fdf	*init_fdf(char *file_name)
 		error(4);
 	}
 	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+	{
+		free(fdf->map);
+		free(fdf);
+		error(3);
+	}
 	fdf->win_x = WINDOW_WIDTH;
 	fdf->win_y = WINDOW_HEIGHT;
 	fdf->win = mlx_new_window(fdf->mlx, fdf->win_x, fdf->win_y, WINDOW_NAME);
+	if (!fdf->win)
+		close_map(fdf, 5);
 	fdf->image = init_image(fdf->mlx);
 	if (!fdf->image)
 		close_map(fdf, 5);
@@ -77,7 +85,7 @@ t_cam	*init_cam(t_map *map)
 	cam->projection = ISOMETRIC;
 	cam->color_pallet = FALSE;
 	cam->scale_factor = scale_to_fit(map);
-	cam->scale_z = 1;
+	cam->scale_z = 0.5;
 	cam->move_x = WINDOW_WIDTH / 2;
 	cam->move_y = WINDOW_HEIGHT / 2;
 	cam->alpha = 0;

@@ -12,11 +12,31 @@
 
 #include "../includes/fdf.h"
 
-static void	apply_colors(t_fdf *fdf, t_point *point)
+static void	set_color_from_palette(t_fdf *fdf, t_point *point)
 {
 	t_color	*col;
 
 	col = NULL;
+	if (point->z >= 0)
+	{
+		col = color_pallet_init(C_LIME, C_BLUEY);
+		point->color = get_color(col, absolute(point->z), \
+			absolute(fdf->map->max_z));
+		free(col);
+	}
+	else if (point->z == 0)
+		point->color = C_LIME;
+	else
+	{
+		col = color_pallet_init(C_LIME, C_ORANGY);
+		point->color = get_color(col, absolute(point->z), \
+			absolute(fdf->map->max_z));
+		free(col);
+	}
+}
+
+static void	apply_colors(t_fdf *fdf, t_point *point)
+{
 	if (fdf->cam->color_pallet == FALSE)
 	{
 		if (point->color == -1)
@@ -24,22 +44,7 @@ static void	apply_colors(t_fdf *fdf, t_point *point)
 	}
 	else
 	{
-		if (point->z >= 0)
-		{
-			col = color_pallet_init(C_LIME, C_BLUEY);
-			point->color = get_color(col, absolute(point->z), \
-				absolute(fdf->map->max_z));
-			free(col);
-		}
-		else if (point->z == 0)
-			point->color = C_LIME;
-		else
-		{
-			col = color_pallet_init(C_LIME, C_ORANGY);
-			point->color = get_color(col, absolute(point->z), \
-				absolute(fdf->map->max_z));
-			free(col);
-		}
+		set_color_from_palette(fdf, point);
 	}
 }
 
@@ -59,31 +64,11 @@ static void	render_line(t_fdf *fdf, t_point start, t_point end)
 	free(fdf->image->line);
 }
 
-void	display_fps(t_fps *fps_data)
-{
-	struct timespec	current_time;
-	double			elapsed_time;
-
-	clock_gettime(CLOCK_MONOTONIC, &current_time);
-	elapsed_time = (current_time.tv_sec - fps_data->last_time.tv_sec) +
-                   (current_time.tv_nsec - fps_data->last_time.tv_nsec) / 1000000.0;
-	fps_data->frames_count++;
-	if (elapsed_time >= 1.0)
-	{
-		fps_data->fps = fps_data->frames_count;
-		fps_data->frames_count = 0;
-		fps_data->last_time = current_time;
-	}
-}
-
 void	render(t_fdf *fdf)
 {
 	int	x;
 	int	y;
 
-	if (fdf->process == 1)
-		return;
-	fdf->process = 1;
 	clear_image(fdf->image, MAX_PIXEL * 4);
 	y = 0;
 	while (y < fdf->map->max_y)
@@ -104,5 +89,4 @@ void	render(t_fdf *fdf)
 	display_fps(&fdf->fps_data);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->image->image, 0, 0);
 	print_menu(fdf);
-	fdf->process = 0;
 }

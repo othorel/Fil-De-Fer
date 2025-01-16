@@ -14,7 +14,8 @@
 
 static int	expose_handle(t_fdf *fdf)
 {
-	render(fdf);
+	if (fdf)
+		render(fdf);
 	return (0);
 }
 
@@ -33,6 +34,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error(1);
 	file_name = argv[1];
+	if (!ft_strnstr(file_name, ".fdf", ft_strlen(file_name)))
+		error(1);
 	fdf = init_fdf(file_name);
 	if (!fdf)
 		error(1);
@@ -45,4 +48,5 @@ int	main(int argc, char **argv)
 	mlx_hook(fdf->win, 17, 0L, &handle_destroy, fdf);
 	mlx_expose_hook(fdf->win, &expose_handle, fdf);
 	mlx_loop(fdf->mlx);
+	return (0);
 }

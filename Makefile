@@ -28,10 +28,11 @@ CFLAGS      =   -Wall -Wextra -Werror -g -I./libft/srcs -Iincludes
 FLAGS       =   -lm -L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11
 
 # Commandes colorées et décoratives
-GREEN       =   \033[1;32m
-CYAN        =   \033[1;36m
+GREEN       =   \033[1;35m
+CYAN        =   \033[1;34m
 RESET       =   \033[0m
-SMILEY      =   😊👍
+SMILEY      =   👍
+SMILEY2	    =   😎
 
 # Règle pour générer chaque fichier .o dans obj/
 $(OBJ_DIR)/%.o: src/%.c $(HEADERS)
@@ -44,7 +45,8 @@ all: libft mlx $(NAME)
 $(NAME): $(OBJS) $(HEADERS)
 	@echo "$(CYAN)Linking...$(RESET)"
 	@$(CC) $(OBJS) -o $(NAME) $(FLAGS)
-	@echo "$(GREEN)Executable $(NAME) created! $(SMILEY)$(RESET)"
+	@echo "$(GREEN)Executable $(NAME) created! $(SMILEY2)$(RESET)"
+	@echo "$(GREEN)Usage: ./fdf [map.fdf]$(RESET)"
 
 # Nettoyage des fichiers objets
 clean:
@@ -70,7 +72,7 @@ libft:
 mlx:
 	@echo "$(CYAN)Building minilibx-linux...$(RESET)"
 	@make -s -C minilibx-linux all >/dev/null 2>&1
-	@echo "$(GREEN)Minilibx built successfully!$(RESET)"
+	@echo "$(GREEN)Minilibx built successfully! $(SMILEY)$(RESET)"
 
 # Éviter les conflits avec des fichiers portant les noms des cibles
 .PHONY: all clean fclean re libft mlx
