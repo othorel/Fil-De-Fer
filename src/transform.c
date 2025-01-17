@@ -33,3 +33,17 @@ void	transform(t_cam *cam, t_line *line)
 	scale(line, cam->scale_factor);
 	translate(line, cam->move_x, cam->move_y);
 }
+
+char	*get_projection_name(t_fdf *fdf)
+{
+	char	*projection;
+
+	projection = "";
+	if (fdf->cam->projection == ISOMETRIC)
+		projection = "Isometric projection";
+	else if (fdf->cam->projection == PERSPECTIVE)
+		projection = "Perspective projection";
+	else if (fdf->cam->projection == TOP)
+		projection = "Top view";
+	return (projection);
+}

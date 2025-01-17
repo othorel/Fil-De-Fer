@@ -26,12 +26,6 @@ t_fdf	*init_fdf(char *file_name)
 		error(4);
 	}
 	fdf->mlx = mlx_init();
-	if (!fdf->mlx)
-	{
-		free(fdf->map);
-		free(fdf);
-		error(3);
-	}
 	fdf->win_x = WINDOW_WIDTH;
 	fdf->win_y = WINDOW_HEIGHT;
 	fdf->win = mlx_new_window(fdf->mlx, fdf->win_x, fdf->win_y, WINDOW_NAME);

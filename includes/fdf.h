@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/15 14:36:46 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:03:02 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <time.h>
 
 # define WINDOW_NAME	 	"fdf olthorel"
-# define WINDOW_WIDTH		1600
-# define WINDOW_HEIGHT		900
+# define WINDOW_WIDTH		 1600
+# define WINDOW_HEIGHT		 900
 # define MAX_PIXEL			1080000
 # define LINE_DEFAULT		C_WHITE
 # define BACKGROUND_DEFAULT	C_GREY
 # define C_TEXT				C_WHITE
+# define C_NBR				C_WHITE
 # define HEXADECIMAL_L_BASE	"0123456789abcdef"
 # define ANG_1				0.01745329
 # define ANG_30				0.52359877
@@ -100,13 +100,6 @@ typedef struct s_cam
 	double	gamma;
 }			t_cam;
 
-typedef struct s_fps
-{
-	struct timespec	last_time;
-	int				frames_count;
-	double			fps;
-}					t_fps;
-
 typedef struct s_fdf
 {
 	t_map	*map;
@@ -115,7 +108,6 @@ typedef struct s_fdf
 	int		win_y;
 	void	*win;
 	int		process;
-	t_fps	fps_data;
 	t_image	*image;
 	t_cam	*cam;
 }			t_fdf;
@@ -179,6 +171,8 @@ int		key_handle(int keycode, t_fdf *fdf);
 size_t	ft_split_count(const char *s, char c);
 int		ft_atoi_base(const char *str, const char *base);
 
-void	display_fps(t_fps *fps_data);
+void	print_nbr(t_fdf *fdf, int x, int y, int nbr);
+void	print_str(t_fdf *fdf, int x, int y, char *str);
+char	*get_projection_name(t_fdf *fdf);
 
 #endif

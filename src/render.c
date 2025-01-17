@@ -77,16 +77,23 @@ void	render(t_fdf *fdf)
 		while (x < fdf->map->max_x)
 		{
 			if (x < fdf->map->max_x - 1)
+			{
+				ft_printf("Connecte horizontalement : (%d, %d) -> (%d, %d)\n",
+					x, y, x + 1, y);
 				render_line(fdf, fdf->map->coordinates[x][y], \
 					fdf->map->coordinates[x + 1][y]);
+			}
 			if (y < fdf->map->max_y - 1)
+			{
+				ft_printf("Connecte verticalement : (%d, %d) -> (%d, %d)\n",
+					x, y, x, y + 1);
 				render_line(fdf, fdf->map->coordinates[x][y], \
 					fdf->map->coordinates[x][y + 1]);
+			}
 			x++;
 		}
 		y++;
 	}
-	display_fps(&fdf->fps_data);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->image->image, 0, 0);
 	print_menu(fdf);
 }

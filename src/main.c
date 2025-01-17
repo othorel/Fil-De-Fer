@@ -29,20 +29,18 @@ static int	handle_destroy(t_fdf *fdf)
 int	main(int argc, char **argv)
 {
 	char	*file_name;
+	int		fd;
 	t_fdf	*fdf;
 
 	if (argc != 2)
 		error(1);
 	file_name = argv[1];
-	if (!ft_strnstr(file_name, ".fdf", ft_strlen(file_name)))
-		error(1);
+	fd = open(file_name, O_RDONLY, 0);
+	if (fd < 0)
+		error(2);
 	fdf = init_fdf(file_name);
 	if (!fdf)
 		error(1);
-	clock_gettime(CLOCK_MONOTONIC, &fdf->fps_data.last_time);
-	fdf->fps_data.frames_count = 0;
-	fdf->fps_data.fps = 0;
-	fdf->process = 0;
 	render(fdf);
 	mlx_hook(fdf->win, 2, 1L << 0, &key_handle, fdf);
 	mlx_hook(fdf->win, 17, 0L, &handle_destroy, fdf);

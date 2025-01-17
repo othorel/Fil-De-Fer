@@ -12,52 +12,72 @@
 
 #include "../includes/fdf.h"
 
-static char	*get_projection_name(t_fdf *fdf)
+static void	display_map_info_line(t_fdf *fdf, int *line, char *str, int nbr)
 {
-	char	*projection;
+	if (line && fdf)
+	{
+		print_str(fdf, 30, *line, str);
+		print_nbr(fdf, 100, *line, nbr);
+		*line += 30;
+	}
+}
 
-	projection = "";
-	if (fdf->cam->projection == ISOMETRIC)
-		projection = "Isometric projection";
-	else if (fdf->cam->projection == PERSPECTIVE)
-		projection = "Perspective projection";
-	else if (fdf->cam->projection == TOP)
-		projection = "Top view";
-	return (projection);
+static void	map_info(t_fdf *fdf)
+{
+	int		line;
+
+	line = 100;
+	print_str(fdf, 30, line, "//// MAP INFO ////");
+	line += 30;
+	display_map_info_line(fdf, &line, "Width :", fdf->map->max_x);
+	display_map_info_line(fdf, &line, "Height :", fdf->map->max_y);
+	display_map_info_line(fdf, &line, "Max Z :", fdf->map->max_z);
+	display_map_info_line(fdf, &line, "Min Z :", fdf->map->min_z);
+	display_map_info_line(fdf, &line, "Max X :", fdf->map->max_x);
+	display_map_info_line(fdf, &line, "Max Y :", fdf->map->max_y);
+}
+
+static void	display_control(t_fdf *fdf, int *line, char *str)
+{
+	if (line && fdf)
+	{
+		print_str(fdf, 30, *line, str);
+		*line += 30;
+	}
+}
+
+static void	draw_info(t_fdf *fdf)
+{
+	int		line;
+
+	line = 350;
+	print_str(fdf, 30, line, "//// CONTROLS ////");
+	line += 30;
+	display_control(fdf, &line, "Press 'ESC' or 'X' to close");
+	display_control(fdf, &line, "Zoom : press '-' or '+'");
+	display_control(fdf, &line, "Rotate X : press 'S' or 'W'");
+	display_control(fdf, &line, "Rotate Y : press 'Q' or 'E'");
+	display_control(fdf, &line, "Rotate Z : press 'A' or 'D'");
+	display_control(fdf, &line, "Scale Z : press 'Z' or 'X'");
+	display_control(fdf, &line, "Change projection view :");
+	display_control(fdf, &line, "Isometric : press 'I'");
+	display_control(fdf, &line, "Perspective : press 'P'");
+	display_control(fdf, &line, "Top View : press 'O'");
+	display_control(fdf, &line, "Colors : press 'SPACE'");
+	display_control(fdf, &line, "Reset view : press 'R'");
 }
 
 void	print_menu(t_fdf *fdf)
 {
-	int		y;
+	int		line;
 	char	*projection;
-	void	*mlx;
-	void	*win;
-	char	*fps;
 
-	y = 0;
-	mlx = fdf->mlx;
-	win = fdf->win;
-	fps = ft_itoa(fdf->fps_data.fps);
+	line = 30;
 	projection = get_projection_name(fdf);
-	mlx_string_put(mlx, win, 50, y += 50, C_TEXT, projection);
-	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Press 'ESC' to close");
-	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Zoom: press '-' or '+'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Move: press arrow keys");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Rotate X: press 'S' or 'W'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Rotate Y: press 'Q' or 'E'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Rotate Z: press 'A' or 'D'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Scale Z: press 'Z' or 'X'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "(Z scale limited to 100%)");
-	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "To change projection view:");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Isometric: press 'I'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Perspective: press 'P'");
-	mlx_string_put(mlx, win, 50, y += 20, C_TEXT, "Top View: press 'O'");
-	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Colors: press 'SPACE'");
-	mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "Reset view: press 'R'");
-	if (fps)
-	{
-		mlx_string_put(mlx, win, 50, y += 35, C_TEXT, "FPS: ");
-		mlx_string_put(mlx, win, 100, y, C_TEXT, fps);
-		free(fps);
-	}
+	print_str(fdf, 30, line, "//// PROJECTION ////");
+	line += 30;
+	print_str(fdf, 30, line, projection);
+	line += 30;
+	map_info(fdf);
+	draw_info(fdf);
 }

@@ -60,21 +60,3 @@ size_t	ft_split_count(const char *s, char c)
 	}
 	return (counter);
 }
-
-void	display_fps(t_fps *fps_data)
-{
-	struct timespec	current_time;
-	double			elapsed_time;
-
-	clock_gettime(CLOCK_MONOTONIC, &current_time);
-	elapsed_time = (current_time.tv_sec - fps_data->last_time.tv_sec)
-		+ (current_time.tv_nsec - fps_data->last_time.tv_nsec)
-		/ 1000000.0;
-	fps_data->frames_count++;
-	if (elapsed_time >= 1.0)
-	{
-		fps_data->fps = fps_data->frames_count;
-		fps_data->frames_count = 0;
-		fps_data->last_time = current_time;
-	}
-}
