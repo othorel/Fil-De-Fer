@@ -28,7 +28,7 @@ static void	key_scale(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_PLUS)
 		fdf->cam->scale_factor += 1;
-	else if (keycode == KEY_MINUS)
+	else if (keycode == KEY_MINUS && fdf->cam->scale_factor > 1)
 		fdf->cam->scale_factor -= 1;
 	else if (keycode == KEY_Z && fdf->cam->scale_z > -1)
 		fdf->cam->scale_z -= 0.1;

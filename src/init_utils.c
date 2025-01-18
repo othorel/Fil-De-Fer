@@ -66,10 +66,6 @@ float	scale_to_fit(t_map *map)
 	float	scale_y;
 	float	scale_factor;
 
-	if (map->max_x == 0)
-		map->max_x = 1;
-	if (map->max_y == 0)
-		map->max_y = 1;
 	scale_x = WINDOW_WIDTH / map->max_x;
 	scale_y = WINDOW_HEIGHT / map->max_y;
 	scale_factor = min(scale_x, scale_y);
