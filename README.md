@@ -71,4 +71,28 @@ make fclean
 make re
 ```
 ---
+## 💻 Usage
 
+Once compiled, you can run the program to display a 3D wireframe of a map.
+
+Run the main program:
+```bash
+./fdf test_maps/[map].fdf
+```
+
+#### Different projections
+
+By pressing `I`, `O` and `P` keys on your keyboard, you will switch projection views to `Isometric`, `Top View` and `Perspective`, respectively. 
+
+<figure>
+<figcaption><i>Isometric View</i></figcaption>
+<img width="550px" src=https://github.com/othorel/Fil-De-Fer/blob/main/img/Screenshot%20from%202025-01-20%2016-31-01.png alt="FdF Isometric"/>
+</figure>
+<figure>
+<figcaption><i>Top View</i></figcaption>
+<img width="550px" src=https://github.com/othorel/Fil-De-Fer/blob/main/img/Screenshot%20from%202025-01-20%2016-34-17.png alt="FdF Top View"/>
+</figure>
+<figure>
+<figcaption><i>Perspective View</i></figcaption>
+<img width="550px" src=https://github.com/othorel/Fil-De-Fer/blob/main/img/Screenshot%20from%202025-01-20%2016-32-41.png alt="FdF Perspective"/>
+</figure>
