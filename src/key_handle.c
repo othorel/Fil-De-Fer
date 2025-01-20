@@ -86,6 +86,5 @@ int	key_handle(int keycode, t_fdf *fdf)
 	}
 	else if (keycode == KEY_R)
 		reset(fdf);
-	render(fdf);
 	return (0);
 }

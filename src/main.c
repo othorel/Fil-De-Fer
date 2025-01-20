@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 	render(fdf);
 	mlx_hook(fdf->win, 2, 1L << 0, &key_handle, fdf);
 	mlx_hook(fdf->win, 17, 0L, &handle_destroy, fdf);
-	mlx_expose_hook(fdf->win, &expose_handle, fdf);
+	mlx_loop_hook(fdf->mlx, &expose_handle, fdf);
 	mlx_loop(fdf->mlx);
 	return (0);
 }

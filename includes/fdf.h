@@ -6,7 +6,7 @@
 /*   By: olthorel <olthorel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 17:22:52 by olthorel          #+#    #+#             */
-/*   Updated: 2025/01/17 17:03:02 by olthorel         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:50:02 by olthorel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,31 @@ enum e_bool
 	TRUE
 };
 
+/* ************************************************************************** */
+/*                                  READ AND PARSE MAP                        */
+/* ************************************************************************** */
+
 t_map	*read_map(char *file_name);
 
+/* ************************************************************************** */
+/*                                  ERROR MANAGEMENT                          */
+/* ************************************************************************** */
+
 void	error(int exit_code);
+
+/* ************************************************************************** */
+/*                                  INITIALIZATION                            */
+/* ************************************************************************** */
 
 t_fdf	*init_fdf(char *file_name);
 t_map	*init_map(void);
 t_image	*init_image(void *mlx);
 t_line	*init_line(t_point start, t_point end, t_fdf *fdf);
 t_cam	*init_cam(t_map *map);
+
+/* ************************************************************************** */
+/*                                  INITIALIZATION UTILS                      */
+/* ************************************************************************** */
 
 t_point	**init_coordinates(int width, int depth);
 void	center_to_origin(t_map *map);
@@ -145,9 +161,17 @@ int		handle_close(int keycode, t_fdf *fdf);
 t_color	*color_init(t_point start, t_point end);
 t_color	*color_pallet_init(int min_color, int max_color);
 
+/* ************************************************************************** */
+/*                                  MATH UTILS                                */
+/* ************************************************************************** */
+
 float	absolute(float nbr);
 float	max(float a, float b);
 float	min(float a, float b);
+
+/* ************************************************************************** */
+/*                                  DRAWING                                   */
+/* ************************************************************************** */
 
 void	render(t_fdf *fdf);
 void	draw_image(t_image *image, int max_x, int max_y);
@@ -156,6 +180,10 @@ void	pixel_to_image(t_image *image, float x, float y, int color);
 void	clear_image(t_image *image, int image_size);
 void	print_menu(t_fdf *fdf);
 int		get_color(t_color *color, int i_line, int line_size);
+
+/* ************************************************************************** */
+/*                                  TRANSFORMATION                            */
+/* ************************************************************************** */
 
 void	rotate(t_cam *cam, t_line *line);
 void	rotate_x(t_line *line, double angle);
@@ -166,11 +194,18 @@ void	transform(t_cam *cam, t_line *line);
 void	scale(t_line *line, int scale_factor);
 void	translate(t_line *line, int move_x, int move_y);
 
+/* ************************************************************************** */
+/*                                  KEY HANDLE                                */
+/* ************************************************************************** */
+
 int		key_handle(int keycode, t_fdf *fdf);
+
+/* ************************************************************************** */
+/*                                  UTILS                                     */
+/* ************************************************************************** */
 
 size_t	ft_split_count(const char *s, char c);
 int		ft_atoi_base(const char *str, const char *base);
-
 void	print_nbr(t_fdf *fdf, int x, int y, int nbr);
 void	print_str(t_fdf *fdf, int x, int y, char *str);
 char	*get_projection_name(t_fdf *fdf);
