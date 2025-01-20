@@ -96,3 +96,4 @@ By pressing `I`, `O` and `P` keys on your keyboard, you will switch projection v
 <figcaption><i>Perspective View</i></figcaption>
 <img width="550px" src=https://github.com/othorel/Fil-De-Fer/blob/main/img/Screenshot%20from%202025-01-20%2016-32-41.png alt="FdF Perspective"/>
 </figure>
+---
