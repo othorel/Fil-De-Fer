@@ -1,7 +1,7 @@
 # 🌐 FDF - 42 Project
 
 <p align="center">
-  <img src="https://github.com/leogaudin/42_project_badges/raw/main/badges/fdf_bonus.webp" />
+  <img src="https://github.com/othorel/Fil-De-Fer/blob/main/img/Screenshot%20from%202025-01-20%2016-31-01.png" />
 </p>
 
 Welcome to **FDF**, a 42 project where you create a 3D wireframe viewer for 3D landscapes based on 2D maps. The project involves graphics programming, coordinate transformation, and rendering.
