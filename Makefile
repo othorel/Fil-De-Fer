@@ -22,6 +22,7 @@ OBJS        =   $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 HEADERS     =   includes/fdf.h     
 
 NAME        =   fdf
+NAME_BONUS  =   fdf_bonus
 
 CC          =   cc
 CFLAGS      =   -Wall -Wextra -Werror -g -I./libft/srcs -Iincludes
@@ -48,6 +49,15 @@ $(NAME): $(OBJS) $(HEADERS)
 	@echo "$(GREEN)Executable $(NAME) created! $(SMILEY2)$(RESET)"
 	@echo "$(GREEN)Usage: ./fdf [map.fdf]$(RESET)"
 
+# Cible bonus
+bonus: libft mlx $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS) $(HEADERS)
+	@echo "$(CYAN)Linking bonus...$(RESET)"
+	@$(CC) $(OBJS) -o $(NAME_BONUS) $(FLAGS)
+	@echo "$(GREEN)Executable $(NAME_BONUS) created! $(SMILEY2)$(RESET)"
+	@echo "$(GREEN)Usage: ./fdf_bonus [map.fdf]$(RESET)"
+
 # Nettoyage des fichiers objets
 clean:
 	@rm -rf $(OBJ_DIR)
@@ -57,9 +67,9 @@ clean:
 
 # Nettoyage complet
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) $(NAME_BONUS)
 	@make -s fclean -C libft
-	@echo "$(CYAN)Executable $(NAME) removed!$(RESET)"
+	@echo "$(CYAN)Executable $(NAME) or $(NAME_BONUS) removed!$(RESET)"
 
 # Recompiler à partir de zéro
 re: fclean all
@@ -70,9 +80,7 @@ libft:
 
 # Génération de la bibliothèque minilibx avec sortie masquée
 mlx:
-	@echo "$(CYAN)Building minilibx-linux...$(RESET)"
 	@make -s -C minilibx-linux all >/dev/null 2>&1
-	@echo "$(GREEN)Minilibx built successfully! $(SMILEY)$(RESET)"
 
 # Éviter les conflits avec des fichiers portant les noms des cibles
-.PHONY: all clean fclean re libft mlx
+.PHONY: all clean fclean re libft mlx bonus
